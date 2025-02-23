@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Busgame</title>
+  <link href="index.css" rel="stylesheet" />
+</head>
+<body>
+  <canvas id="kanvas" width="1024" height="256"></canvas>
+
+  <script type="module">
+    import { BusGame } from './src/BusGame.js'
+
+    const busGame = new BusGame()
+    
+    document.addEventListener('keyup', (event) => {
+      if (event.code === 'Space') busGame.bus.jump()
+    })
+  </script>
+</body>
+</html>

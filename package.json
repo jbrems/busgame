@@ -1,0 +1,17 @@
+{
+  "name": "busgame",
+  "version": "0.1.0",
+  "description": "",
+  "type": "module",
+  "scripts": {
+    "start": "http-server . -o -c-1"
+  },
+  "keywords": [],
+  "author": "Jonas Brems",
+  "license": "GPLv3",
+  "devDependencies": {
+    "eslint": "^9.20.1",
+    "eslint-config-jbrems": "^1.1.4",
+    "http-server": "^14.1.1"
+  }
+}
