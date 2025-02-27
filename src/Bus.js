@@ -4,7 +4,7 @@ import { v } from "./utils.js";
 export class Bus extends Particle {
   constructor() {
     super()
-    this.setPos(v(-150, 130)).setVel(v(2, 0)).setAcc(v(-0.01, 0.1))
+    this.setPos(v(-150, 130)).setVel(v(2, 0)).setAcc(v(-0.01, 0.2))
     this.setWidth(180).setHeight(60)
   }
 
@@ -47,6 +47,6 @@ export class Bus extends Particle {
 
   jump() {
     if (this.vel.y !== 0) return
-    this.applyForce(v(0, -4))
+    this.applyForce(v(0, -6))
   }
 }

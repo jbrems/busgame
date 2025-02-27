@@ -12,7 +12,7 @@ export class BusGame {
     this.kanvas.addDrawHandler(this.draw.bind(this))
     this.kanvas.addUpdateHandler(this.update.bind(this))
     
-    this.busSpeed = 7
+    this.busSpeed = 10
 
     this.road = new Road(this.busSpeed)
     this.bus = new Bus()
