@@ -1,5 +1,5 @@
 import { Particle } from "./Particle.js";
-import { randomColor } from "./random.js";
+import { randomColor, randomNumber } from "./random.js";
 import { v } from "./utils.js";
 
 export class Car extends Particle {
@@ -9,38 +9,40 @@ export class Car extends Particle {
     super()
     this.speed = speed
     this.setPos(v(1000, 165)).setVel(v(-speed, 0))
-    this.setWidth(80).setHeight(20)
+    this.setWidth(randomNumber(80, 160)).setHeight(20)
   }
 
   draw(ctx) {
+    const wheelOffset = this.width / 4.5
+
     ctx.beginPath()
-    ctx.moveTo(this.pos.x, this.pos.y)
-    ctx.lineTo(this.pos.x, this.pos.y + this.height)
-    ctx.lineTo(this.pos.x + this.width, this.pos.y + this.height)
-    ctx.lineTo(this.pos.x + this.width, this.pos.y )
-    ctx.lineTo(this.pos.x + this.width - 16, this.pos.y)
-    ctx.lineTo(this.pos.x + this.width - 26, this.pos.y - 16)
-    ctx.lineTo(this.pos.x + 26, this.pos.y - 16)
-    ctx.lineTo(this.pos.x + 16, this.pos.y)
+    ctx.moveTo(this.pos.x, this.pos.y) // body top left
+    ctx.lineTo(this.pos.x, this.pos.y + this.height) // bottom left
+    ctx.lineTo(this.pos.x + this.width, this.pos.y + this.height) // bottom right
+    ctx.lineTo(this.pos.x + this.width, this.pos.y ) // body top right
+    ctx.lineTo(this.pos.x + this.width - wheelOffset + 10, this.pos.y)
+    ctx.lineTo(this.pos.x + this.width - wheelOffset, this.pos.y - 16)
+    ctx.lineTo(this.pos.x + wheelOffset, this.pos.y - 16)
+    ctx.lineTo(this.pos.x + wheelOffset - 10, this.pos.y)
     ctx.closePath().fill(this.color)
 
     ctx.beginPath()
-    ctx.moveTo(this.pos.x + 22, this.pos.y)
-    ctx.lineTo(this.pos.x + 38, this.pos.y)
-    ctx.lineTo(this.pos.x + 38, this.pos.y - 13)
-    ctx.lineTo(this.pos.x + 28, this.pos.y - 13)
-    ctx.closePath().fill('lightblue')
+    ctx.moveTo(this.pos.x + wheelOffset, this.pos.y)
+    ctx.lineTo(this.pos.x + this.width / 2 - 5, this.pos.y)
+    ctx.lineTo(this.pos.x + this.width / 2 - 5, this.pos.y - 10)
+    ctx.lineTo(this.pos.x + wheelOffset + 6, this.pos.y - 10)
+    ctx.closePath().fill('white')
 
     ctx.beginPath()
-    ctx.moveTo(this.pos.x + this.width - 22, this.pos.y)
-    ctx.lineTo(this.pos.x + this.width - 38, this.pos.y)
-    ctx.lineTo(this.pos.x + this.width - 38, this.pos.y - 13)
-    ctx.lineTo(this.pos.x + this.width - 28, this.pos.y - 13)
-    ctx.closePath().fill('lightblue')
+    ctx.moveTo(this.pos.x + this.width - wheelOffset, this.pos.y)
+    ctx.lineTo(this.pos.x + this.width / 2 + 5, this.pos.y)
+    ctx.lineTo(this.pos.x + this.width / 2 + 5, this.pos.y - 10)
+    ctx.lineTo(this.pos.x + this.width - wheelOffset - 6, this.pos.y - 10)
+    ctx.closePath().fill('white')
 
 
-    ctx.circle(this.pos.x + 16, this.pos.y + this.height, 8).fill('black')
-    ctx.circle(this.pos.x + 64, this.pos.y + this.height, 8).fill('black')
+    ctx.circle(this.pos.x + wheelOffset, this.pos.y + this.height, 8).fill('black')
+    ctx.circle(this.pos.x + this.width - wheelOffset, this.pos.y + this.height, 8).fill('black')
 
     // this.drawDebug(ctx)
   }
@@ -53,9 +55,9 @@ export class Car extends Particle {
   }
 
   reset() {
-    this.pos.x = 1024 + Math.random() * 100
-    this.setVel(v(-this.speed - Math.random() * 3, 0))
-    this.setColor(randomColor())
+    this.pos.x = randomNumber(1024, 2048)
+    this.setVel(v(-this.speed - randomNumber(0, 5), 0))
+    this.setColor(randomColor()).setWidth(randomNumber(80, 160))
     this.destroyed = false
     return this
   }
