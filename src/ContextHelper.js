@@ -5,6 +5,21 @@ export class ContextHelper {
     this.height = height
   }
 
+  save() {
+    this.ctx.save()
+    return this
+  }
+
+  restore() {
+    this.ctx.restore()
+    return this
+  }
+
+  translate(x, y) {
+    this.ctx.translate(x, y)
+    return this
+  }
+
   beginPath() {
     this.ctx.beginPath()
     return this

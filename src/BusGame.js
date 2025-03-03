@@ -25,8 +25,8 @@ export class BusGame {
     ctx.clear()
 
     this.road.draw(ctx)
-    this.bus.draw(ctx)
     this.opposingCars.forEach(c => c.draw(ctx))
+    this.bus.draw(ctx)
     this.cars.forEach(c => c.draw(ctx))
   }
 

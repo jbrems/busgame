@@ -97,10 +97,7 @@ export class Particle {
     ctx.rect(this.boundingBox.x, this.boundingBox.y, this.boundingBox.width, this.boundingBox.height).lineWidth(1).stroke('red')
   }
 
-  update(updateCount) {
-    if (updateCount % 10 === 0) this.hist.unshift(this.pos.copy())
-    this.hist.splice(100, 1)
-
+  update() {
     this.vel.add(this.acc)
     this.pos.add(this.vel)
     return this
