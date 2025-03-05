@@ -5,11 +5,13 @@ import { v } from "./utils.js";
 export class Car extends Particle {
   destroyed = false
   
-  constructor(speed) {
+  constructor(speed, onEndReached = () => {}, onCrash = () => {}) {
     super()
     this.speed = speed
     this.setPos(v(1000, 165)).setVel(v(-speed, 0))
     this.setWidth(100).setHeight(20)
+    this.onEndReached = onEndReached
+    this.onCrash = onCrash
   }
 
   draw(ctx) {
@@ -19,15 +21,18 @@ export class Car extends Particle {
 
     // Body
     ctx.beginPath()
-    ctx.moveTo(0, 0) // body top left
+    ctx.moveTo(6, 0) // body top left
+    ctx.arcTo(0, 0, 0, 6, 6)
     ctx.lineTo(0, this.height) // bottom left
     ctx.lineTo(this.width, this.height) // bottom right
-    ctx.lineTo(this.width, 0 ) // body top right
+    ctx.lineTo(this.width, 6 ) // body top right
+    ctx.arcTo(this.width, 0, this.width - 6, 0, 6)
     ctx.lineTo(this.width - wheelOffset + 10, 0)
     ctx.lineTo(this.width - wheelOffset, -16)
     ctx.lineTo(wheelOffset, -16)
     ctx.lineTo(wheelOffset - 10, 0)
     ctx.closePath().fill(this.color)
+
 
     // Left window
     ctx.beginPath()
@@ -58,6 +63,7 @@ export class Car extends Particle {
     super.update()
 
     if (this.pos.x < -this.width) {
+      this.onEndReached()
       this.reset()
     }
   }
@@ -74,9 +80,7 @@ export class Car extends Particle {
     if (this.destroyed) return
     this.destroyed = true
     const originalColor = this.color
-    this.vel = v(2, 0)
-    this.acc = v(-0.05, 0)
-    this.setColor('white')
+    this.setVel(v(2, 0)).setAcc(v(-0.05, 0)).setColor('white').onCrash()
     setTimeout(() => { this.setColor(originalColor) }, 100)
     setTimeout(() => { this.setColor('white') }, 200)
     setTimeout(() => { this.setColor(originalColor) }, 300)

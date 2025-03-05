@@ -40,6 +40,11 @@ export class ContextHelper {
     return this
   }
 
+  arcTo(x1, y1, x2, y2, r) {
+    this.ctx.arcTo(x1, y1, x2, y2, r)
+    return this
+  }
+
   arc(x, y, radius, startAngle, endAngle, counterClockwise = false) {
     this.ctx.beginPath()
     this.ctx.arc(x, y, radius, startAngle, endAngle, counterClockwise)
@@ -69,13 +74,17 @@ export class ContextHelper {
     return this
   }
 
-  rect(x, y, width, height) {
+  rect(x, y, width, height, radius = 0) {
     this.beginPath()
-      .moveTo(x, y)
-      .lineTo(x + width, y)
-      .lineTo(x + width, y + height)
-      .lineTo(x, y + height)
-      .lineTo(x, y)
+      .moveTo(x + radius, y)
+      .lineTo(x + width - radius, y)
+      .arcTo(x + width, y, x + width, y + radius, radius)
+      .lineTo(x + width, y + height - radius)
+      .arcTo(x + width, y + height, x + width - radius, y + height, radius)
+      .lineTo(x + radius, y + height)
+      .arcTo(x, y + height, x, y + height - radius, radius)
+      .lineTo(x, y + radius)
+      .arcTo(x, y, x + radius, y, radius)
     return this
   }
 
@@ -104,5 +113,29 @@ export class ContextHelper {
   reset() {
     this.ctx.reset()
     return this
+  }
+
+  font(font) {
+    this.ctx.font = font
+    return this
+  }
+
+  text(text, x, y) {
+    const ctxHelper = this
+    return {
+      ...ctxHelper,
+      fill: (font, fillStyle) => {
+        if (font) this.font(font)
+        if (fillStyle) this.fillStyle(fillStyle)
+        this.ctx.fillText(text, x, y)
+        return ctxHelper
+      },
+      stroke: (font, strokeStyle) => {
+        if (font) this.font(font)
+        if (strokeStyle) this.strokeStyle(strokeStyle)
+        this.ctx.strokeText(text, x, y)
+        return ctxHelper
+      },
+    }
   }
 }
