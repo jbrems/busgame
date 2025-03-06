@@ -6,6 +6,7 @@ import { v } from './utils.js'
 
 export class BusGame {
   score = 0
+  speed = 10
 
   constructor() {
     this.kanvas = new Kanvas()
@@ -13,12 +14,10 @@ export class BusGame {
     this.kanvas.addDrawHandler(this.draw.bind(this))
     this.kanvas.addUpdateHandler(this.update.bind(this))
     
-    this.busSpeed = 10
-
-    this.road = new Road(this.busSpeed)
+    this.road = new Road(this.speed)
     this.bus = new Bus()
-    this.cars = new Array(1).fill(0).map((_, i) => new Car(2).setPos(v(1000, 220)))
-    this.opposingCars = new Array(1).fill(0).map((_, i) => new Car(this.busSpeed + 4, this.onScore.bind(this), this.onCrash.bind(this)))
+    this.cars = new Array(1).fill(0).map((_, i) => new Car(this.speed - 8).setPos(v(1000, 220)))
+    this.opposingCars = new Array(1).fill(0).map((_, i) => new Car(this.speed + 4, this.onScore.bind(this), this.onCrash.bind(this)))
 
     this.scoreSound = new Audio('/assets/score.wav')
     this.crashSound = new Audio('/assets/crash.wav')
@@ -49,6 +48,11 @@ export class BusGame {
   }
 
   update() {
+    this.speed += 0.001
+    this.road.setSpeed(this.speed)
+    this.cars.forEach(c => c.increaseSpeed(0.001))
+    this.opposingCars.forEach(c => c.increaseSpeed(0.001))
+
     this.road.update()
     this.bus.update()
     this.cars.forEach(c => c.update())

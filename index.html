@@ -13,6 +13,10 @@
     import { BusGame } from './src/BusGame.js'
 
     const busGame = new BusGame()
+
+    document.addEventListener('keydown', (event) => {
+      if (event.code === 'Space') busGame.bus.crouch()
+    })
     
     document.addEventListener('keyup', (event) => {
       if (event.code === 'Space') busGame.bus.jump()

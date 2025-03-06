@@ -2,6 +2,8 @@ import { Particle } from './Particle.js'
 import { v } from "./utils.js";
 
 export class Bus extends Particle {
+  crouching = false
+
   constructor() {
     super()
     this.setPos(v(-150, 130)).setVel(v(2, 0)).setAcc(v(-0.01, 0.2))
@@ -10,6 +12,7 @@ export class Bus extends Particle {
 
   draw(ctx) {
     ctx.save().translate(this.pos.x, this.pos.y)
+    if (this.crouching) ctx.translate(0, 5)
     ctx.rect(0, 0, this.width, this.height).fill('white')
 
     // De Lijn stripe
@@ -28,6 +31,7 @@ export class Bus extends Particle {
     ctx.rect(150, 5, 25, 50).fill('lightblue')
     
     // Wheels
+    if (this.crouching) ctx.translate(0, -5)
     ctx.circle(35, 60, 10).fill('black')
     ctx.circle(135, 60, 10).fill('black')
 
@@ -50,7 +54,12 @@ export class Bus extends Particle {
     }
   }
 
+  crouch() {
+    this.crouching = true
+  }
+
   jump() {
+    this.crouching = false
     if (this.vel.y !== 0) return
     this.applyForce(v(0, -6))
   }

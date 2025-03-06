@@ -14,6 +14,11 @@ export class Car extends Particle {
     this.onCrash = onCrash
   }
 
+  increaseSpeed(speed) {
+    this.speed += speed
+    this.vel.x -= speed
+  }
+
   draw(ctx) {
     const wheelOffset = this.width / 4.5
 
