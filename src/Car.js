@@ -5,13 +5,16 @@ import { v } from "./utils.js";
 export class Car extends Particle {
   destroyed = false
   
-  constructor(speed, onEndReached = () => {}, onCrash = () => {}) {
+  constructor(speed, onCrash = () => {}) {
     super()
     this.speed = speed
     this.setPos(v(1000, 165)).setVel(v(-speed, 0))
     this.setWidth(100).setHeight(20)
-    this.onEndReached = onEndReached
     this.onCrash = onCrash
+  }
+
+  get safeDistanceBoundingBox() {
+    return { ...this.boundingBox, x: this.pos.x - this.width / 2, width: this.width * 2 }
   }
 
   increaseSpeed(speed) {
@@ -36,7 +39,7 @@ export class Car extends Particle {
     ctx.lineTo(this.width - wheelOffset, -16)
     ctx.lineTo(wheelOffset, -16)
     ctx.lineTo(wheelOffset - 10, 0)
-    ctx.closePath().fill(this.color)
+    ctx.closePath().fill(this.color).stroke('white')
 
 
     // Left window
@@ -68,9 +71,12 @@ export class Car extends Particle {
     super.update()
 
     if (this.pos.x < -this.width) {
-      this.onEndReached()
       this.reset()
     }
+  }
+
+  pause() {
+    this.pos.sub(this.vel)
   }
 
   reset() {

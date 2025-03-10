@@ -13,14 +13,14 @@ export class Bus extends Particle {
   draw(ctx) {
     ctx.save().translate(this.pos.x, this.pos.y)
     if (this.crouching) ctx.translate(0, 5)
-    ctx.rect(0, 0, this.width, this.height).fill('white')
+    ctx.rect(0, 0, this.width, this.height, 5).fill('white').stroke('grey')
 
     // De Lijn stripe
     ctx.beginPath()
-    ctx.moveTo(80, this.height)
+    ctx.moveTo(80, this.height - 1)
     ctx.lineTo(90, 30)
     ctx.lineTo(120, 30)
-    ctx.lineTo(110, this.height)
+    ctx.lineTo(110, this.height - 1)
     ctx.closePath().fill('yellow')
     
     // Windows and doors
