@@ -3,7 +3,6 @@ import { Road } from './Road.js'
 import { Bus } from './Bus.js'
 import { Car } from './Car.js'
 import { v } from './utils.js'
-import { Background } from './Background.js'
 import { HaltePaal } from './HaltePaal.js'
 
 export class BusGame {
@@ -16,7 +15,6 @@ export class BusGame {
     this.kanvas.addDrawHandler(this.draw.bind(this))
     this.kanvas.addUpdateHandler(this.update.bind(this))
     
-    this.bg = new Background()
     this.road = new Road(this.speed)
     this.haltePaal = new HaltePaal(this.speed, this.onScore.bind(this))
     this.bus = new Bus()
@@ -49,8 +47,6 @@ export class BusGame {
 
   draw(ctx) {
     ctx.clear()
-
-    // this.bg.draw(ctx)
 
     this.haltePaal.draw(ctx)
     this.road.draw(ctx)
@@ -96,7 +92,5 @@ export class BusGame {
         }
       })
     })
-
-    this.bg.update()
   }
 }
