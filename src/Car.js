@@ -5,11 +5,12 @@ import { v } from "./utils.js";
 export class Car extends Particle {
   destroyed = false
   
-  constructor(speed, onCrash = () => {}) {
+  constructor(speed, onEndReached = () => {}, onCrash = () => {}) {
     super()
     this.speed = speed
     this.setPos(v(1000, 165)).setVel(v(-speed, 0))
     this.setWidth(100).setHeight(20)
+    this.onEndReached = onEndReached
     this.onCrash = onCrash
   }
 
@@ -71,6 +72,7 @@ export class Car extends Particle {
     super.update()
 
     if (this.pos.x < -this.width) {
+      this.onEndReached()
       this.reset()
     }
   }
