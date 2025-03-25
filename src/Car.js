@@ -8,7 +8,7 @@ export class Car extends Particle {
   constructor(speed, onEndReached = () => {}, onCrash = () => {}) {
     super()
     this.speed = speed
-    this.setPos(v(1000, 165)).setVel(v(-speed, 0))
+    this.setPos(v(1200, 165)).setVel(v(-speed, 0))
     this.setWidth(100).setHeight(20)
     this.onEndReached = onEndReached
     this.onCrash = onCrash

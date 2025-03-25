@@ -5,7 +5,7 @@ import { randomColor, randomNumber } from "./random.js"
 export class HaltePaal extends Particle {
   constructor(speed, onScore = () => {}) {
     super()
-    this.setPos(v(1000, 56)).setVel(v(-speed, 0))
+    this.setPos(v(1200, 56)).setVel(v(-speed, 0))
     this.setWidth(35).setHeight(100)
     this.waiting = 3
     this.colors = new Array(this.waiting).fill(0).map(() => randomColor())
@@ -18,14 +18,13 @@ export class HaltePaal extends Particle {
 
   reset() {
     this.pos.x = 5000
-    this.waiting = Math.floor(randomNumber(0, 10))
+    this.waiting = Math.floor(randomNumber(1, 10))
     this.colors = new Array(this.waiting).fill(0).map(() => randomColor())
   }
 
   draw(ctx) {
     ctx.rect(this.pos.x, this.pos.y + 3, 35, 35, 5).fill('white').stroke('grey')
-    ctx.circle(this.pos.x + 5, this.pos.y + 5, 5).fill('gold').stroke('grey')
-    ctx.rect(this.pos.x, this.pos.y + 5, 10, this.height).fill('gold').stroke('grey')
+    ctx.rect(this.pos.x, this.pos.y, 10, this.height, 2).fill('gold').stroke('grey')
 
     for (let i = 0; i < this.waiting; i++) {
       ctx.circle(this.pos.x + 30 + i * 30, this.pos.y + 65, 8).fill('pink').stroke('grey')

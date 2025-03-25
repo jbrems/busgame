@@ -7,9 +7,11 @@ import { HaltePaal } from './HaltePaal.js'
 
 export class BusGame {
   score = 0
-  speed = 10
+  speed = 9
   running = false
   gameOver = false
+  gameOverPeriod = false
+  dustCatcher = false
 
   constructor() {
     this.kanvas = new Kanvas()
@@ -44,25 +46,34 @@ export class BusGame {
     this.score -= 1000
     this.crashSound.play()
     if (this.score <= 0) {
-      this.music.pause()
       this.running = false
       this.gameOver = true
+      this.gameOverPeriod = true
+      setTimeout(() => { this.gameOverPeriod = false }, 2500)
     }
   }
 
   start() {
+    if (this.gameOverPeriod) return
     if (this.gameOver) this.reset()
     this.running = true
-    this.music.play()
+
+    if (navigator.platform.includes('Mac')) {
+      setTimeout(() => { 
+        this.dustCatcher = true 
+        this.score -= 5000
+      }, 1000)
+      setTimeout(() => { this.dustCatcher = false }, 3000)
+    }
   }
 
   reset() {
     this.score = 0
-    if (navigator.platform.includes('Mac')) this.score = -5000
     this.gameOver = false
   }
 
   jump() {
+    this.music.play()
     if (!this.running) {
       this.start()
       return
@@ -75,7 +86,15 @@ export class BusGame {
     ctx.clear()
 
     ctx.rect(10, 10, 75, 30, 5).stroke('grey')
-    ctx.text(`space  to ${this.running ? 'jump' : 'start'}`, 22, 30).fill('16px monospace', '#bbbbbb')
+    ctx.text(`space  to ${this.running || this.gameOverPeriod ? 'jump' : 'start'}`, 22, 30).fill('16px monospace', '#bbbbbb')
+    
+    ctx.rect(10, 45, 30, 30, 5).stroke('grey')
+    ctx.text(`M  to mute`, 20, 65).fill('16px monospace', '#bbbbbb')
+    
+    if (this.dustCatcher) {
+      ctx.text(`-5K dust catcher`, 402, 71).fill('24px monospace', 'goldenrod')
+      ctx.text(`-5K dust catcher`, 400, 70).fill('24px monospace', 'gold')
+    }
 
     this.haltePaal.draw(ctx)
     this.road.draw(ctx)
@@ -83,6 +102,7 @@ export class BusGame {
     this.bus.draw(ctx)
     this.cars.forEach(c => c.draw(ctx))
 
+    ctx.text(this.score.toString().padStart(6, ' '), ctx.width - 197, 52).fill('50px monospace', 'goldenrod')
     ctx.text(this.score.toString().padStart(6, ' '), ctx.width - 200, 50).fill('50px monospace', 'gold')
 
     if (this.gameOver) {
