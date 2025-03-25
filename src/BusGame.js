@@ -25,10 +25,10 @@ export class BusGame {
     this.cars = new Array(5).fill(0).map((_, i) => new Car(this.speed - 8).setPos(v(1000 + i * 151, 220)))
     this.opposingCars = new Array(1).fill(0).map((_, i) => new Car(this.speed + 4, this.onScore.bind(this, 1, 10), this.onCrash.bind(this)))
 
-    this.music = new Audio('/assets/music.mp3')
-    this.jumpSound = new Audio('/assets/jump.wav')
-    this.crashSound = new Audio('/assets/crash.wav')
-    this.dingSounds = new Array(10).fill(0).map(d => new Audio('/assets/score.wav'))
+    this.music = new Audio('assets/music.mp3')
+    this.jumpSound = new Audio('assets/jump.wav')
+    this.crashSound = new Audio('assets/crash.wav')
+    this.dingSounds = new Array(10).fill(0).map(d => new Audio('assets/score.wav'))
 
     this.reset()
   }
