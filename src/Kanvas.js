@@ -6,9 +6,7 @@ export class Kanvas {
   drawHandlers = []
 
   constructor(canvasElement) {
-    console.log(document.getElementById('kanvas'))
     this.canvasElement = canvasElement || document.getElementById('kanvas') || document.getElementsByTagName('canvas')[0]
-    console.log(this.canvasElement)
     this.width = this.canvasElement.width
     this.height = this.canvasElement.height
     this.updateCount = 0

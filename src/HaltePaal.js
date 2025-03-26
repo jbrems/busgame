@@ -5,7 +5,7 @@ import { randomColor, randomNumber } from "./random.js"
 export class HaltePaal extends Particle {
   constructor(speed, onScore = () => {}) {
     super()
-    this.setPos(v(1200, 56)).setVel(v(-speed, 0))
+    this.setPos(v(2000, 56)).setVel(v(-speed, 0))
     this.setWidth(35).setHeight(100)
     this.waiting = 3
     this.colors = new Array(this.waiting).fill(0).map(() => randomColor())

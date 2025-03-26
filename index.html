@@ -14,7 +14,10 @@
 
     document.addEventListener('DOMContentLoaded', () => {
       console.log('DOM content loaded, starting Busgame...')
+      setTimeout(start, 500)
+    })
 
+    function start() {
       const busGame = new BusGame()
   
       document.addEventListener('keydown', (event) => {
@@ -26,7 +29,7 @@
       })
 
       document.getElementById('kanvas').focus()
-    })
+    }
   </script>
 </body>
 </html>
