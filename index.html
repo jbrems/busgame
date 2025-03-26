@@ -7,19 +7,25 @@
   <link href="index.css" rel="stylesheet" />
 </head>
 <body>
-  <canvas id="kanvas" width="1024" height="256"></canvas>
+  <canvas id="kanvas" width="1024" height="256" tabindex="0"></canvas>
 
   <script type="module">
     import { BusGame } from './src/BusGame.js'
 
-    const busGame = new BusGame()
+    document.addEventListener('DOMContentLoaded', () => {
+      console.log('DOM content loaded, starting Busgame...')
 
-    document.addEventListener('keydown', (event) => {
-      if (event.code === 'Space') busGame.bus.crouch()
-    })
-    
-    document.addEventListener('keyup', (event) => {
-      if (event.code === 'Space') busGame.jump()
+      const busGame = new BusGame()
+  
+      document.addEventListener('keydown', (event) => {
+        if (event.code === 'Space') busGame.bus.crouch()
+      })
+      
+      document.addEventListener('keyup', (event) => {
+        if (event.code === 'Space') busGame.jump()
+      })
+
+      document.getElementById('kanvas').focus()
     })
   </script>
 </body>

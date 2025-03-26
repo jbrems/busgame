@@ -10,7 +10,7 @@ export class BusGame {
   speed = 9
   running = false
   gameOver = false
-  gameOverPeriod = false
+  ready = false
   dustCatcher = false
 
   constructor() {
@@ -31,6 +31,8 @@ export class BusGame {
     this.dingSounds = new Array(10).fill(0).map(d => new Audio('assets/score.wav'))
 
     this.reset()
+
+    setTimeout(() => { this.ready = true }, 3000)
   }
 
   onScore(amount, value = 100) {
@@ -48,22 +50,20 @@ export class BusGame {
     if (this.score <= 0) {
       this.running = false
       this.gameOver = true
-      this.gameOverPeriod = true
-      setTimeout(() => { this.gameOverPeriod = false }, 2500)
+      this.ready = false
+      setTimeout(() => { this.ready = true }, 2500)
     }
   }
 
   start() {
-    if (this.gameOverPeriod) return
+    if (!this.ready) return
     if (this.gameOver) this.reset()
     this.running = true
 
     if (navigator.platform.includes('Mac')) {
-      setTimeout(() => { 
-        this.dustCatcher = true 
-        this.score -= 5000
-      }, 1000)
-      setTimeout(() => { this.dustCatcher = false }, 3000)
+      this.dustCatcher = true 
+      this.score -= 5000
+      setTimeout(() => { this.dustCatcher = false }, 2000)
     }
   }
 
@@ -85,8 +85,10 @@ export class BusGame {
   draw(ctx) {
     ctx.clear()
 
-    ctx.rect(10, 10, 75, 30, 5).stroke('grey')
-    ctx.text(`space  to ${this.running || this.gameOverPeriod ? 'jump' : 'start'}`, 22, 30).fill('16px monospace', '#bbbbbb')
+    if (this.ready) {
+      ctx.rect(10, 10, 75, 30, 5).stroke('grey')
+      ctx.text(`space  to ${this.running ? 'jump' : 'start'}`, 22, 30).fill('16px monospace', '#bbbbbb')
+    }
     
     ctx.rect(10, 45, 30, 30, 5).stroke('grey')
     ctx.text(`M  to mute`, 20, 65).fill('16px monospace', '#bbbbbb')
