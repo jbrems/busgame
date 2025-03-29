@@ -28,6 +28,12 @@
         if (event.code === 'Space') busGame.jump()
       })
 
+      window.addEventListener('message', () => {
+        console.log('Message received', message)
+        if (message === 'crouch') busGame.bus.crouch()
+        if (message === 'jump') busGame.jump()
+      })
+
       document.getElementById('kanvas').focus()
     }
   </script>

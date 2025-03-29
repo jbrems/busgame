@@ -32,7 +32,10 @@ export class BusGame {
 
     this.reset()
 
-    setTimeout(() => { this.ready = true }, 3000)
+    setTimeout(() => { 
+      this.ready = true
+      this.music.play()
+     }, 3000)
   }
 
   onScore(amount, value = 100) {
