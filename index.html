@@ -29,7 +29,7 @@
       })
 
       window.addEventListener('message', (event) => {
-        console.log('Message received', event.data)
+        if (event.data?.source !== 'react-devtools-content-script') console.log('Message received', event.data)
         if (event.data === 'crouch') busGame.bus.crouch()
         if (event.data === 'jump') busGame.jump()
       })
