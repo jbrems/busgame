@@ -89,7 +89,7 @@ export class BusGame {
     ctx.clear()
 
     if (this.ready) {
-      ctx.rect(10, 10, 75, 30, 5).stroke('grey')
+      ctx.rect(10, 10, 70, 30, 5).stroke('grey')
       ctx.text(`space  to ${this.running ? 'jump' : 'start'}`, 22, 30).fill('16px monospace', '#bbbbbb')
     }
     

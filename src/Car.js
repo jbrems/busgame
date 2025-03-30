@@ -93,7 +93,7 @@ export class Car extends Particle {
     if (this.destroyed) return
     this.destroyed = true
     const originalColor = this.color
-    this.setVel(v(2.2, 0)).setAcc(v(-0.05, 0)).setColor('white').onCrash()
+    this.setVel(v(2.5, 0)).setAcc(v(-0.05, 0)).setColor('white').onCrash()
     setTimeout(() => { this.setColor(originalColor) }, 100)
     setTimeout(() => { this.setColor('white') }, 200)
     setTimeout(() => { this.setColor(originalColor) }, 300)
