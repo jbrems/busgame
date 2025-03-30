@@ -40,7 +40,7 @@ export class Car extends Particle {
     ctx.lineTo(this.width - wheelOffset, -16)
     ctx.lineTo(wheelOffset, -16)
     ctx.lineTo(wheelOffset - 10, 0)
-    ctx.closePath().fill(this.color).stroke('white')
+    ctx.closePath().fill(this.color).lineWidth(2).stroke('white')
 
 
     // Left window
@@ -60,8 +60,8 @@ export class Car extends Particle {
     ctx.closePath().fill('white')
 
     // Wheels
-    ctx.circle(wheelOffset, this.height, 8).fill('black')
-    ctx.circle(this.width - wheelOffset, this.height, 8).fill('black')
+    ctx.circle(wheelOffset, this.height, 8).fill('black').lineWidth(2).stroke('white')
+    ctx.circle(this.width - wheelOffset, this.height, 8).fill('black').lineWidth(2).stroke('white')
 
     ctx.restore()
 
@@ -93,7 +93,7 @@ export class Car extends Particle {
     if (this.destroyed) return
     this.destroyed = true
     const originalColor = this.color
-    this.setVel(v(2, 0)).setAcc(v(-0.05, 0)).setColor('white').onCrash()
+    this.setVel(v(2.2, 0)).setAcc(v(-0.05, 0)).setColor('white').onCrash()
     setTimeout(() => { this.setColor(originalColor) }, 100)
     setTimeout(() => { this.setColor('white') }, 200)
     setTimeout(() => { this.setColor(originalColor) }, 300)

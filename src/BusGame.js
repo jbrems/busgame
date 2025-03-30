@@ -51,9 +51,9 @@ export class BusGame {
     this.score -= 1000
     this.crashSound.play()
     if (this.score <= 0) {
-      this.running = false
       this.gameOver = true
       this.ready = false
+      setTimeout(() => { this.running = false }, 1000)
       setTimeout(() => { this.ready = true }, 2500)
     }
   }

@@ -32,8 +32,8 @@ export class Bus extends Particle {
     
     // Wheels
     if (this.crouching) ctx.translate(0, -5)
-    ctx.circle(35, 60, 10).fill('black')
-    ctx.circle(135, 60, 10).fill('black')
+    ctx.circle(35, 60, 10).fill('black').lineWidth(2).stroke('white')
+    ctx.circle(135, 60, 10).fill('black').lineWidth(2).stroke('white')
 
     ctx.restore()
 
